@@ -39,9 +39,19 @@ body {
 }
 
 .nav .logo {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: bold;
     color: #3e422d;
+    text-shadow:
+        1px 1px 0 #b78e56,
+        2px 2px 0 #9f8653,
+        3px 3px 0 #1f1e17;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease;
+}
+
+.nav .logo:hover {
+    transform: scale(1.05);
 }
 
 .nav a {
