@@ -21,6 +21,23 @@ body {
     margin-bottom: 2rem;
 }
 
+.nav .logo, .nav nav {
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: slideIn 0.8s forwards;
+}
+
+.nav nav {
+    animation-delay: 0.3s;
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .nav .logo {
     font-size: 1.5rem;
     font-weight: bold;
@@ -45,6 +62,18 @@ body {
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform 0.3s ease, opacity 0.6s ease-out;
+}
+
+.card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card:hover {
+    transform: translateY(-5px);
 }
 
 .card.hero {
@@ -118,13 +147,13 @@ body {
 }
 
 .card.portrait img {
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  object-fit: cover;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    object-fit: cover;
 }
 
 .card.portrait {
-  background: #2d2c24;
-  padding: 0.5rem;
+    background: #2d2c24;
+    padding: 0.5rem;
 }
