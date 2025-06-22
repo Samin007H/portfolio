@@ -128,3 +128,25 @@ body {
   background: #2d2c24;
   padding: 0.5rem;
 }
+.contact-button {
+    display: block;
+    padding: 1rem 1.5rem;
+    background-color: #3e422d;
+    color: #f5f1e3;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.contact-button:hover {
+    background-color: #2d382b;
+    color: #caa26b;
+    transform: scale(1.05);
+}
+
