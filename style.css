@@ -174,21 +174,3 @@ body {
     gap: 0.5rem;
 }
 
-.cube {
-    width: 20px;
-    height: 20px;
-    background: #3e422d;
-    border: 2px solid #caa26b;
-    transform-style: preserve-3d;
-    animation: rotateCube 3s linear infinite;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-}
-
-@keyframes rotateCube {
-    from {
-        transform: rotateX(0deg) rotateY(0deg);
-    }
-    to {
-        transform: rotateX(360deg) rotateY(360deg);
-    }
-}
