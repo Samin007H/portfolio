@@ -3,47 +3,122 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Project 1 - Guess the Number Game</title>
+  <title>Project 1 - Interactive 3D Code Cube</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #1f1e17;
+      color: #f5f1e3;
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    .scene {
+      width: 200px;
+      height: 200px;
+      perspective: 600px;
+      margin-bottom: 1.5rem;
+    }
+    .cube {
+      width: 150px;
+      height: 150px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(-20deg) rotateY(20deg);
+      transition: transform 0.1s ease-out;
+      cursor: grab;
+      user-select: none;
+      margin: auto;
+    }
+    .face {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: #3e422d;
+      border: 3px solid #caa26b;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: bold;
+      color: #caa26b;
+      text-shadow: 1px 1px 0 #1f1e17;
+      box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1);
+      user-select: none;
+    }
+    .face.front  { transform: translateZ(75px); }
+    .face.back   { transform: rotateY(180deg) translateZ(75px); }
+    .face.right  { transform: rotateY(90deg) translateZ(75px); }
+    .face.left   { transform: rotateY(-90deg) translateZ(75px); }
+    .face.top    { transform: rotateX(90deg) translateZ(75px); }
+    .face.bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+    a.back-link {
+      color: #caa26b;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+    a.back-link:hover {
+      color: #f5f1e3;
+    }
+  </style>
 </head>
 <body>
-  <h1>Project 1: Guess the Number Game</h1>
-  <p>Try to guess the number between 1 and 100!</p>
+  <h1>Project 1: Interactive 3D Code Cube</h1>
 
-  <input type="number" id="guessInput" placeholder="Enter your guess" />
-  <button id="guessBtn">Guess</button>
+  <div class="scene">
+    <div class="cube" id="cube">
+      <div class="face front">{ }</div>
+      <div class="face back">&lt;/&gt;</div>
+      <div class="face right">JS</div>
+      <div class="face left">HTML</div>
+      <div class="face top">CSS</div>
+      <div class="face bottom">🐍</div>
+    </div>
+  </div>
 
-  <p id="feedback"></p>
-  <p id="attempts"></p>
-
-  <a href="index.html">Back to Home</a>
+  <a href="index.html" class="back-link">← Back to Home</a>
 
   <script>
-    const numberToGuess = Math.floor(Math.random() * 100) + 1;
-    let attempts = 0;
+    const cube = document.getElementById('cube');
+    let isDragging = false;
+    let startX, startY;
+    let currentX = -20;
+    let currentY = 20;
 
-    const guessInput = document.getElementById('guessInput');
-    const guessBtn = document.getElementById('guessBtn');
-    const feedback = document.getElementById('feedback');
-    const attemptsDisplay = document.getElementById('attempts');
+    cube.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      cube.style.cursor = 'grabbing';
+    });
 
-    guessBtn.addEventListener('click', () => {
-      const guess = Number(guessInput.value);
-      attempts++;
-      if (!guess || guess < 1 || guess > 100) {
-        feedback.textContent = 'Please enter a valid number between 1 and 100.';
-      } else if (guess === numberToGuess) {
-        feedback.textContent = `🎉 Congrats! You guessed it right in ${attempts} attempts.`;
-        guessBtn.disabled = true;
-        guessInput.disabled = true;
-      } else if (guess < numberToGuess) {
-        feedback.textContent = 'Too low! Try a higher number.';
-      } else {
-        feedback.textContent = 'Too high! Try a lower number.';
-      }
-      attemptsDisplay.textContent = `Attempts: ${attempts}`;
-      guessInput.value = '';
-      guessInput.focus();
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+      cube.style.cursor = 'grab';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.clientX - startX;
+      const deltaY = e.clientY - startY;
+      currentX = currentX - deltaY * 0.5;
+      currentY = currentY + deltaX * 0.5;
+      cube.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
+      startX = e.clientX;
+      startY = e.clientY;
     });
   </script>
 </body>
